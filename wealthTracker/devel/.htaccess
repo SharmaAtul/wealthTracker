@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "devel"
+AuthUserFile "/home/ifswacom/.htpasswds/public_html/devel/passwd"
+require valid-user

@@ -1,0 +1,64 @@
+﻿<div class="container container-minheight">
+    <div style="margin:20px;">
+        <h1 style="display:inline">Client details</h1>
+        
+        <button class="btn btn-lg btn-warning pull-right" style="margin:2px;" type="button" ng-click="viewDashboard()">
+            <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span> View dashboard 
+        </button>
+        <button class="btn btn-lg btn-link pull-right" style="margin:2px;" type="button" ng-click="cancel()">
+            back to clients
+        </button>
+    </div>
+    <hr />
+    <div>
+        <form novalidate class="form-horizontal" role="form" name="clientForm">
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="userEmail">Client email</label>
+                <div class="col-sm-4">
+                    <label class="form-control-static" >{{userDetail.userEmail}}</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="userName">Client name</label>
+                <div class="col-sm-4">
+                    <label class="form-control-static">{{userDetail.firstName}} {{userDetail.lastName}}</label>
+                </div>
+                <label class="col-sm-2 control-label" for="userName">DOB</label>
+                <div class="col-sm-4">
+                    <label class="form-control-static">{{userDetail.dob | date : 'dd/MM/yyyy'}}</label>
+                </div>
+            </div>
+        </form>
+    </div>
+    <hr />
+    <div style="margin:20px;">
+        <h2 style="display:inline">Clients historical net wealth details</h2>
+        <button class="btn btn-lg btn-primary pull-right" type="submit" ng-click="addFunding()">
+            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add new wealth details
+        </button>
+        
+    </div>
+    <hr />
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Entry Date</th>
+                <th>Risk Profile</th>
+                <th>Net wealth date</th>
+                <th width="80px"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="clientFunding in clientFundings" >
+                <td>{{clientFunding.entryDate | date : 'dd/MM/yyyy'}} </td>
+                <td>{{clientFunding.riskProfile}}</td>
+                <td>{{clientFunding.fundingPeriod | date : 'dd/MM/yyyy'}}</td>
+                <td>
+                    <a ng-click="editFunding($index)" tooltip="edit wealth detail period"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;
+                    <a ng-click="deleteFunding($index)" tooltip="delete wealth detail period" confirm-if="checked" confirm="Are you sure to delete?"><span class="glyphicon glyphicon-remove"></span></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <pagination ng-show="totalItems > 20" boundary-links="true" items-per-page="pageSize" num-pages="pagesToDisplay" ng-change="pageChanged()" total-items="totalItems" ng-model="currentPage" class="pagination-sm pull-right" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+</div>

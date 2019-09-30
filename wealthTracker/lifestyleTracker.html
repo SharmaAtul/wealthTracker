@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="app" ng-controller="AppCtrl">
+
+<!-- Head -->
+<head>
+    <meta charset="utf-8" />
+    <title page-title="IFSWA-Lifestyle Tracker"></title>
+    <base href="/" />
+    <meta name="description" content="blank page" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="Sat, 01 Dec 2001 00:00:00 GMT">
+
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/Site.css" rel="stylesheet" />
+
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="bower_components/angular-storage/dist/angular-storage.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="bower_components/oclazyload/dist/ocLazyLoad.min.js"></script>
+
+    <script src="bower_components/angular-breadcrumb/angular-breadcrumb.js"></script>
+    <!--<script src="bower_components/angular-breadcrumb/breadcrumb-directive.js"></script>-->
+    <!--<script src="bower_components/angular-datetime/angular-datetime-directive.js"></script>-->
+    <script src="bower_components/angular-chart/chart.min.js"></script>
+    <script src="bower_components/angular-chart/angular-chart.min.js"></script>
+    <link href="Content/angular-chart.min.css" rel="stylesheet" />
+    <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+
+    <script src="bower_components/angular-spinner/spin.min.js"></script>
+    <script src="bower_components/angular-spinner/angular-spinner.min.js"></script>
+    <script src="bower_components/angular-chart/d3.min.js"></script>
+    <script src="bower_components/angular-confirm/angular-confirm.js"></script>
+    <script src="bower_components/angular-chart/nv.d3.min.js"></script>
+    <script src="bower_components/angular-chart/angularjs-nvd3-directives.min.js"></script>
+    <link href="bower_components/angular-chart/nv.d3.min.css" rel="stylesheet" />
+    <script src="bower_components/angular-ui-bootstrap/ui-bootstrap.js"></script>
+    <script src="bower_components/angular-ui-bootstrap/ui-bootstrap-custom-tpls-0.13.2.min.js"></script>
+    <link href="bower_components/angular-toaster/ngToast.css" rel="stylesheet" />
+    <script src="bower_components/angular-toaster/ngToast.js"></script>
+    <script src="bower_components/angular-file-uploader/fileModel.js"></script>
+    <script src="bower_components/angular-file-uploader/fileUpload-service.js"></script>
+
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+
+</head>
+<body>
+    
+    <!-- App Config and Routing Scripts -->
+    <script src="Scripts/config/route.config.js"></script>
+    <script src="Scripts/config/beyond.js"></script>
+
+    <!-- Common Scripts -->
+    <script src="lib/common/sessionService.js"></script>
+    <script src="lib/common/authInterceptor.js"></script>
+
+    <script src="Areas/login/login-service.js"></script>
+
+    <toast></toast>
+    <span us-spinner="{radius:20, width:8, length: 16}" id="request-spinner" style="display:none"></span>
+    <div ui-view="header"></div>
+    <div ui-view="content"></div>
+    <div ui-view="footer"></div>
+</body>
+</html>
+<script type="text/javascript" language="javascript">
+    function printContent()
+    {
+        //$("#divDashboard").wordExport();
+        var clientAndSpouse = $("#divUserAndSpouse").html();
+        var items = clientAndSpouse.split(',');
+        var clientNameString = items[0] + (items[1] == "" ? "" : " and " + items[1]);
+
+        var divContents = $("#divDashboard").html();
+        var printWindow = window.open('', '_blank', 'width=1260px,scrollbars=yes,');
+            printWindow.document.write('<html><head><title>Dashboard</title>');
+            printWindow.document.write('</head><body >');
+            printWindow.document.write(divContents);
+            printWindow.document.write("<div style='margin:60px;'><div style=' margin-top:40px;'>I/We “" + clientNameString + "” acknowledge and understand our review and wealth tracker. By signing below I/We confirm that and accept recommendations.</div>");
+            printWindow.document.write("<div style='margin-top:20px;'>Signature:           _____________</div>");
+            printWindow.document.write("<div style='margin-top:20px;'>Date:           _____________</div></div>");
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        }
+</script>

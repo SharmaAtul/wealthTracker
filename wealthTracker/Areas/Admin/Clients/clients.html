@@ -1,0 +1,152 @@
+﻿<div class="container container-minheight">
+    <div style="margin:20px;">
+        <h1 style="display:inline;">Manage Clients</h1>
+        <button class="btn btn-lg btn-primary pull-right" type="submit" ng-click="addNewClient()" ng-show="isAdmin">
+            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add New Client
+        </button>
+        <select class="form-control" ng-options="item.name for item in appClients" ng-model="selectedClient" ng-change="getClients()">
+        </select>
+    </div>
+    <hr />
+    <table class="table table-responsive">
+        <thead >
+            <tr>
+                <th>User Name</th>
+                <th>User Email</th>
+                <th>Is Active</th>
+                <th>DOB</th>
+                <th>Spouse Name</th>
+                <th>Spouse DOB</th>
+                <th width="90px"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="client in clients" ng-mouseover="client.selected=true" ng-mouseleave="client.selected=false">
+                
+                <td>{{client.lastName}} {{client.firstName}} </td>
+                <td>{{client.userEmail}} </td>
+                <td>{{client.isActive}}</td>
+                <td>{{client.dob.replace(' ','/')}}</td>
+                <td>{{client.spouseFirstName}} {{client.spouseLastName}}</td>
+                <td>{{client.spouseDOB}}</td>
+                <th>
+                    <a ng-click="showReport($index)" tooltip="view dashboard"><span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span></a>&nbsp;
+                    <a ng-click="showAssetAllocation($index)" tooltip="edit/add new wealth details"><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span></a>&nbsp;
+                    <a ng-click="editClient($index)" tooltip="view/edit client personal details"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                </th>
+            </tr>
+        </tbody>
+    </table>
+    <pagination ng-show="totalItems > 20" boundary-links="true" items-per-page="pageSize" num-pages="pagesToDisplay" ng-change="pageChanged()" total-items="totalItems" ng-model="currentPage" class="pagination-sm pull-right" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+</div>
+<a id="aClientForm" data-toggle="modal" data-target="#userDetailModel"></a>
+<!-- Modal -->
+<div class="modal fade" id="userDetailModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" id="closeUserModal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    {{clientHeaderTitle}}
+                </h4>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <span us-spinner="{radius:30, width:8, length: 16}" id="request-spinner" style="display:none"></span>
+                <form novalidate class="form-horizontal" role="form" name="clientForm">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="userEmail">User email</label>
+                        <div class="col-sm-4">
+                            <input type="email" class="form-control" name="userEmail" id="userEmail" required
+                            ng-class="{true : 'errorField'}[clientFormSubmitted && clientForm.userEmail.$invalid]"
+                            ng-model="user.userName" placeholder="Email" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="password">Password</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="password" name="userPassword"
+                            ng-class="{true : 'errorField'}[clientFormSubmitted && clientForm.userPassword.$invalid]" ng-minlength="6"
+                            ng-model="user.userPassword" required placeholder="Password" />
+                            <span class="errorMessage" ng-show="clientFormSubmitted && clientForm.userPassword.$invalid">Password length should be greater than 6</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="isActive">Is active</label>
+                        <div class="col-sm-4">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" ng-model="user.isActive"  />
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="firstName">First name</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="firstName" name="firstName"
+                                   ng-class="{true : 'errorField'}[clientFormSubmitted && clientForm.firstName.$invalid]"
+                                   ng-model="user.firstName" placeholder="First name" required/>
+                        </div>
+                        <label class="col-sm-2 control-label" for="lastName">Last name</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="lastName" name="lastName"
+                                   ng-class="{true : 'errorField'}[clientFormSubmitted && clientForm.lastName.$invalid]"
+                                   ng-model="user.lastName" placeholder="Last Name" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="dob">DOB</label>
+                        <div class="col-sm-4">
+                            <p class="input-group" ng-class="{true : 'errorField'}[clientFormSubmitted && clientForm.dob.$invalid]">
+                                <input type="text" class="form-control" datepicker-popup="{{format}}" name="dob" ng-model="user.dob" 
+                                       is-open="status.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" required />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </p>
+                            <!--<input type="date" class="form-control" format="dd/MM/yyyy" datetime-model="yyyy-MM-ddTHH:mm:ss" id="dob" ng-model="user.dob" placeholder="DOB" />-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="spouseFirstName">Spouse first name</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="spouseFirstName" ng-model="user.spouseFirstName" placeholder="Spouse First name" />
+                        </div>
+                        <label class="col-sm-2 control-label" for="spouseLastName">Spouse last name</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="spouseLastName" ng-model="user.spouseLastName" placeholder="Spouse Last Name" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="spouseDOB">Spouse DOB</label>
+                        <div class="col-sm-4">
+                            <p class="input-group">
+                                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="user.spouseDOB" is-open="status.spouseDOBopened" datepicker-options="dateOptions" close-text="Close" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="spouseDOBopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </p>
+                            <!--<input type="date" class="form-control" datetime="yyyy-MM-dd" datetime-model="yyyy-MM-ddTHH:mm:ss" id="spouseDOB" ng-model="user.spouseDOB" placeholder="Spouse date of birth" />-->
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="button" class="btn btn-success" ng-click="registerUser()">
+                    <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Save
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

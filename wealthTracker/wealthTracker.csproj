@@ -1,0 +1,815 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B300B22F-AACA-43FB-9E11-F4868E1A367E}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>wealthTracker</RootNamespace>
+    <AssemblyName>wealthTracker</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>1.6</TypeScriptToolsVersion>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.14.0.0.1\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Cors, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Cors.3.0.1\lib\net45\Microsoft.Owin.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.HttpListener, Version=2.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.HttpListener.2.0.2\lib\net45\Microsoft.Owin.Host.HttpListener.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Hosting, Version=2.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Hosting.2.0.2\lib\net45\Microsoft.Owin.Hosting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Cors, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.0.0\lib\net45\System.Web.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http.Owin, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Owin.5.2.3\lib\net45\System.Web.Http.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Runtime.Serialization">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\App_Clients\" />
+    <Folder Include="cgi-bin\" />
+    <Folder Include="portal\" />
+    <Folder Include="UploadedFiles\" />
+    <Folder Include="Views\AppClients\" />
+    <Folder Include="_notes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
+    <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
+    <Compile Include="Areas\HelpPage\Controllers\HelpController.cs" />
+    <Compile Include="Areas\HelpPage\HelpPageAreaRegistration.cs" />
+    <Compile Include="Areas\HelpPage\HelpPageConfigurationExtensions.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\CollectionModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ComplexTypeModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\DictionaryModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\EnumTypeModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\EnumValueDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\IModelDocumentationProvider.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\KeyValuePairModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelDescriptionGenerator.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelNameAttribute.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelNameHelper.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ParameterAnnotation.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ParameterDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\SimpleTypeModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\Models\HelpPageApiModel.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\HelpPageSampleGenerator.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\HelpPageSampleKey.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\ImageSample.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\InvalidSample.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\ObjectGenerator.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
+    <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="AuthRepository.cs" />
+    <Compile Include="Controllers\AppClientsController.cs" />
+    <Compile Include="Controllers\AssetAllocationMastersController.cs" />
+    <Compile Include="Controllers\ClientFundingsController.cs" />
+    <Compile Include="Controllers\HelperClasses.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserDetailsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="DAL\WealthTrackerDB.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AppClient.cs" />
+    <Compile Include="Models\AssetAllocationMaster.cs" />
+    <Compile Include="Models\ClientFunding.cs" />
+    <Compile Include="Models\DashboardReportData.cs" />
+    <Compile Include="Models\ProjectedData.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\CSVParser.cs" />
+    <Compile Include="Providers\RefreshTokenProvider.cs" />
+    <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
+    <Compile Include="Providers\UserStoreService.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="Token.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="appHeaderFooter\footer.html" />
+    <Content Include="appHeaderFooter\headerOther.html" />
+    <Content Include="appHeaderFooter\header-controller.js" />
+    <Content Include="Areas\Admin\ClientAssetAllocation\clientAssetAllocation-controller.js" />
+    <Content Include="Areas\Admin\ClientAssetAllocation\clientAssetAllocation-service.js" />
+    <Content Include="Areas\Admin\ClientAssetAllocation\ClientAssetAllocation.html" />
+    <Content Include="Areas\Admin\clientFunding\clientFunding.html" />
+    <Content Include="Areas\Admin\clientFunding\clientFundingController.js" />
+    <Content Include="Areas\Admin\Clients\clients-controller.js" />
+    <Content Include="Areas\Admin\Clients\clients-service.js" />
+    <Content Include="Areas\Admin\Clients\clients.html" />
+    <Content Include="Areas\Admin\AssetAllocation\assetallocation-controller.js" />
+    <Content Include="Areas\Admin\AssetAllocation\assetallocation-service.js" />
+    <Content Include="Areas\Admin\AssetAllocation\settings.html" />
+    <Content Include="appHeaderFooter\header.html" />
+    <Content Include="Areas\dashboard\dashboardOther.html" />
+    <Content Include="Areas\dashboard\dashboard-controller - Copy.js" />
+    <Content Include="Areas\dashboard\dashboard-service.js" />
+    <Content Include="Areas\dashboard\dashboard-controller.js" />
+    <Content Include="Areas\dashboard\dashboard.html" />
+    <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Areas\login\login-controller.js" />
+    <Content Include="Areas\login\login-service.js" />
+    <Content Include="Areas\login\login.html" />
+    <Content Include="bower_components\angular-animate\angular-animate.js" />
+    <Content Include="bower_components\angular-animate\angular-animate.min.js" />
+    <Content Include="bower_components\angular-animate\index.js" />
+    <Content Include="bower_components\angular-breadcrumb\angular-breadcrumb.js" />
+    <Content Include="bower_components\angular-breadcrumb\breadcrumb-directive.js" />
+    <Content Include="bower_components\angular-chart\angular-chart.min.js" />
+    <Content Include="bower_components\angular-chart\angularjs-nvd3-directives.min.js" />
+    <Content Include="bower_components\angular-chart\chart.min.js" />
+    <Content Include="bower_components\angular-chart\nv-old.d3.min.css" />
+    <Content Include="bower_components\angular-chart\nv-old.d3.min.js" />
+    <Content Include="bower_components\angular-chart\nv.d3.min.css" />
+    <Content Include="bower_components\angular-chart\nv.d3.min.js" />
+    <Content Include="bower_components\angular-confirm\angular-confirm.js" />
+    <Content Include="bower_components\angular-datetime\angular-datetime-directive.js" />
+    <Content Include="bower_components\angular-mocks\angular-mocks.js" />
+    <Content Include="bower_components\angular-mocks\ngAnimateMock.js" />
+    <Content Include="bower_components\angular-mocks\ngMock.js" />
+    <Content Include="bower_components\angular-mocks\ngMockE2E.js" />
+    <Content Include="bower_components\angular-odometer\dist\angular-odometer.js" />
+    <Content Include="bower_components\angular-odometer\dist\angular-odometer.min.js" />
+    <Content Include="bower_components\angular-odometer\Gruntfile.js" />
+    <Content Include="bower_components\angular-odometer\lib\angular-odometer.js" />
+    <Content Include="bower_components\angular-sanitize\angular-sanitize.min.js" />
+    <Content Include="bower_components\angular-spinner\angular-spinner.min.js" />
+    <Content Include="bower_components\angular-spinner\spin.min.js" />
+    <Content Include="bower_components\angular-storage\dist\angular-storage.js" />
+    <Content Include="bower_components\angular-toaster\ngToast.css" />
+    <Content Include="bower_components\angular-toaster\ngToast.js" />
+    <Content Include="bower_components\angular-ui-bootstrap\ui-bootstrap-custom-tpls-0.13.2.min.js" />
+    <Content Include="bower_components\angular-ui-bootstrap\ui-bootstrap.js" />
+    <Content Include="bower_components\angular-ui-router\release\angular-ui-router.js" />
+    <Content Include="bower_components\angular-ui-router\release\angular-ui-router.min.js" />
+    <Content Include="bower_components\angular-ui-router\src\common.js" />
+    <Content Include="bower_components\angular-ui-router\src\resolve.js" />
+    <Content Include="bower_components\angular-ui-router\src\state.js" />
+    <Content Include="bower_components\angular-ui-router\src\stateDirectives.js" />
+    <Content Include="bower_components\angular-ui-router\src\stateFilters.js" />
+    <Content Include="bower_components\angular-ui-router\src\templateFactory.js" />
+    <Content Include="bower_components\angular-ui-router\src\urlMatcherFactory.js" />
+    <Content Include="bower_components\angular-ui-router\src\urlRouter.js" />
+    <Content Include="bower_components\angular-ui-router\src\view.js" />
+    <Content Include="bower_components\angular-ui-router\src\viewDirective.js" />
+    <Content Include="bower_components\angular-ui-router\src\viewScroll.js" />
+    <Content Include="bower_components\angular\angular-csp.css" />
+    <Content Include="bower_components\angular\angular.js" />
+    <Content Include="bower_components\angular\angular.min.js" />
+    <Content Include="bower_components\angular\index.js" />
+    <Content Include="bower_components\oclazyload\dist\modules\ocLazyLoad.core.js" />
+    <Content Include="bower_components\oclazyload\dist\modules\ocLazyLoad.directive.js" />
+    <Content Include="bower_components\oclazyload\dist\modules\ocLazyLoad.loaders.common.js" />
+    <Content Include="bower_components\oclazyload\dist\modules\ocLazyLoad.loaders.core.js" />
+    <Content Include="bower_components\oclazyload\dist\modules\ocLazyLoad.loaders.cssLoader.js" />
+    <Content Include="bower_components\oclazyload\dist\modules\ocLazyLoad.loaders.jsLoader.js" />
+    <Content Include="bower_components\oclazyload\dist\modules\ocLazyLoad.loaders.requireJSLoader.js" />
+    <Content Include="bower_components\oclazyload\dist\modules\ocLazyLoad.loaders.templatesLoader.js" />
+    <Content Include="bower_components\oclazyload\dist\modules\ocLazyLoad.polyfill.ie8.js" />
+    <Content Include="bower_components\oclazyload\dist\ocLazyLoad.js" />
+    <Content Include="bower_components\oclazyload\dist\ocLazyLoad.min.js" />
+    <Content Include="bower_components\oclazyload\dist\ocLazyLoad.require.js" />
+    <Content Include="bower_components\oclazyload\dist\ocLazyLoad.require.min.js" />
+    <Content Include="bower_components\odometer\docs\images\odometer.gif" />
+    <Content Include="bower_components\odometer\docs\welcome\index.html" />
+    <Content Include="bower_components\odometer\docs\welcome\landing-page.css" />
+    <Content Include="bower_components\odometer\docs\welcome\landing-page.js" />
+    <Content Include="bower_components\odometer\docs\welcome\onepage-scroll.css" />
+    <Content Include="bower_components\odometer\docs\welcome\onepage-scroll.js" />
+    <Content Include="bower_components\odometer\odometer.js" />
+    <Content Include="bower_components\odometer\odometer.min.js" />
+    <Content Include="bower_components\odometer\test\demo.html" />
+    <Content Include="bower_components\odometer\test\performance.html" />
+    <Content Include="bower_components\odometer\themes\odometer-theme-car.css" />
+    <Content Include="bower_components\odometer\themes\odometer-theme-default.css" />
+    <Content Include="bower_components\odometer\themes\odometer-theme-digital.css" />
+    <Content Include="bower_components\odometer\themes\odometer-theme-minimal.css" />
+    <Content Include="bower_components\odometer\themes\odometer-theme-plaza.css" />
+    <Content Include="bower_components\odometer\themes\odometer-theme-slot-machine.css" />
+    <Content Include="bower_components\odometer\themes\odometer-theme-train-station.css" />
+    <Content Include="brochure.html" />
+    <Content Include="clients.html" />
+    <Content Include="contact.html" />
+    <Content Include="Content\angular-chart.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\building2.jpg" />
+    <Content Include="Content\images\logo-header.jpg" />
+    <Content Include="Content\images\logo-login.jpg" />
+    <Content Include="disclaimer.html" />
+    <Content Include="docs\news\_notes\dwsync.xml" />
+    <Content Include="docs\_notes\dwsync.xml" />
+    <Content Include="enquiryerror.html" />
+    <Content Include="enquirysent.html" />
+    <Content Include="ethics.html" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="images\11.JPG" />
+    <Content Include="images\arrowlist.gif" />
+    <Content Include="images\award01.jpg" />
+    <Content Include="images\award02.jpg" />
+    <Content Include="images\award04.jpg" />
+    <Content Include="images\award05.png" />
+    <Content Include="images\background %28WinCE%29.jpg" />
+    <Content Include="images\background.jpg" />
+    <Content Include="images\bgbottom.png" />
+    <Content Include="images\bgtop.png" />
+    <Content Include="images\brochurepreview.gif" />
+    <Content Include="images\brochurepreview1.gif" />
+    <Content Include="images\brochurepreview1.jpg" />
+    <Content Include="images\brochurepreview2.gif" />
+    <Content Include="images\btnbg.png" />
+    <Content Include="images\btnbglarge.png" />
+    <Content Include="images\btnbglong.png" />
+    <Content Include="images\btnov.png" />
+    <Content Include="images\btnovlarge.png" />
+    <Content Include="images\btnovlong.png" />
+    <Content Include="images\DSC02434 %28WinCE%29.JPG" />
+    <Content Include="images\financial-planning.gif" />
+    <Content Include="images\footerbg.gif" />
+    <Content Include="images\happy-clients.gif" />
+    <Content Include="images\happypeople.jpg" />
+    <Content Include="images\headerbg.gif" />
+    <Content Include="images\IMGP1429 %28WinCE%29.JPG" />
+    <Content Include="images\IMG_0008 %28WinCE%29.JPG" />
+    <Content Include="images\IMG_0021 %28WinCE%29.JPG" />
+    <Content Include="images\IMG_0039 %28WinCE%29.JPG" />
+    <Content Include="images\IMG_0040 %28WinCE%29.JPG" />
+    <Content Include="images\IMG_0109 %28WinCE%29.JPG" />
+    <Content Include="images\IMG_0145 %28WinCE%29.JPG" />
+    <Content Include="images\IMG_0149 %28WinCE%29.JPG" />
+    <Content Include="images\IMG_0160 %28WinCE%29.JPG" />
+    <Content Include="images\IMG_0205 %28WinCE%29.JPG" />
+    <Content Include="images\IMG_0477 %28WinCE%29.JPG" />
+    <Content Include="images\IMG_05 %28WinCE%29.jpg" />
+    <Content Include="images\IMG_0507 %28WinCE%29.jpg" />
+    <Content Include="images\IMG_0535 %28WinCE%29.jpg" />
+    <Content Include="images\IMG_0545 %28WinCE%29.jpg" />
+    <Content Include="images\IMG_0570 %28WinCE%29.jpg" />
+    <Content Include="images\IMG_0783 %28WinCE%29.JPG" />
+    <Content Include="images\IMG_0804 %28WinCE%29.JPG" />
+    <Content Include="images\IMG_0837 %28WinCE%29.JPG" />
+    <Content Include="images\IMG_0995 %28WinCE%29.JPG" />
+    <Content Include="images\IMG_1105 %28WinCE%29.JPG" />
+    <Content Include="images\IMG_1146 %28WinCE%29.JPG" />
+    <Content Include="images\IMG_1355 %28WinCE%29.JPG" />
+    <Content Include="images\IMG_1359 %28WinCE%29.JPG" />
+    <Content Include="images\IMG_1365 %28WinCE%29.JPG" />
+    <Content Include="images\IMG_2165 %28WinCE%29.jpg" />
+    <Content Include="images\IMG_2165.jpg" />
+    <Content Include="images\IMG_2223 %28WinCE%29.jpg" />
+    <Content Include="images\IMG_4171 %28WinCE%29.JPG" />
+    <Content Include="images\IMG_4258 %28WinCE%29.JPG" />
+    <Content Include="images\IMG_4591 %28WinCE%29.JPG" />
+    <Content Include="images\IMG_4780 %28WinCE%29.JPG" />
+    <Content Include="images\IMG_4812 %28WinCE%29.JPG" />
+    <Content Include="images\IMG_4823 %28WinCE%29.JPG" />
+    <Content Include="images\IMG_4844 %28WinCE%29.JPG" />
+    <Content Include="images\IMG_5451 %28Small%29 %28WinCE%29.JPG" />
+    <Content Include="images\IMG_5484 %28WinCE%29.JPG" />
+    <Content Include="images\IMG_5769 %28WinCE%29.JPG" />
+    <Content Include="images\IMG_6165 %28WinCE%29.JPG" />
+    <Content Include="images\IMG_6176 %28WinCE%29.JPG" />
+    <Content Include="images\intence july 07 134 %28WinCE%29.jpg" />
+    <Content Include="images\intro1.jpg" />
+    <Content Include="images\intro2.jpg" />
+    <Content Include="images\intro3.jpg" />
+    <Content Include="images\intro4.jpg" />
+    <Content Include="images\logo.png" />
+    <Content Include="images\menubg.gif" />
+    <Content Include="images\menubg.jpg" />
+    <Content Include="images\menubg.png" />
+    <Content Include="images\menuov.jpg" />
+    <Content Include="images\menuov.png" />
+    <Content Include="images\office-front.gif" />
+    <Content Include="images\regulators.gif" />
+    <Content Include="images\risk.jpg" />
+    <Content Include="images\send.png" />
+    <Content Include="images\service-driven.jpg" />
+    <Content Include="images\service-portfolio.jpg" />
+    <Content Include="images\service-smsf.jpg" />
+    <Content Include="images\solar-setup.gif" />
+    <Content Include="images\staff\markchristie.jpg" />
+    <Content Include="images\staff\micksteffan.jpg" />
+    <Content Include="images\staff\_notes\dwsync.xml" />
+    <Content Include="images\unique-driven.jpg" />
+    <Content Include="images\unique-value.jpg" />
+    <Content Include="images\what-direct.jpg" />
+    <Content Include="images\whats-driving.jpg" />
+    <Content Include="images\whats-driving1.jpg" />
+    <Content Include="images\_notes\dwsync.xml" />
+    <Content Include="index.html" />
+    <Content Include="index_bk.html" />
+    <Content Include="index.php" />
+    <Content Include="indexdec2012.html" />
+    <Content Include="lifestyleTracker.html" />
+    <Content Include="indexold.html" />
+    <Content Include="indexold1.html" />
+    <Content Include="indexolddec.html" />
+    <Content Include="investment.html" />
+    <Content Include="javascript\functions.js" />
+    <Content Include="javascript\jquery\1.5\jquery.min.js" />
+    <Content Include="javascript\jquery\1.5\_notes\dwsync.xml" />
+    <Content Include="javascript\_notes\dwsync.xml" />
+    <Content Include="lib\common\authInterceptor.js" />
+    <Content Include="lib\common\cookiesService.js" />
+    <Content Include="lib\common\deviceService.js" />
+    <Content Include="lib\common\ng-infinite-scroll-new.js" />
+    <Content Include="lib\common\ng-infinite-scroll.js" />
+    <Content Include="lib\common\sessionService.js" />
+    <Content Include="lib\jquery\bootstrap.js" />
+    <Content Include="lib\jquery\bootstrap.min.js" />
+    <Content Include="lib\jquery\charts\chartjs\chart.js" />
+    <Content Include="lib\jquery\charts\chartjs\chart.min.js" />
+    <Content Include="lib\jquery\charts\easypiechart\jquery.easypiechart.js" />
+    <Content Include="lib\jquery\charts\easypiechart\jquery.easypiechart.min.js" />
+    <Content Include="lib\jquery\charts\flot\jquery.flot.axislabels.js" />
+    <Content Include="lib\jquery\charts\flot\jquery.flot.categories.js" />
+    <Content Include="lib\jquery\charts\flot\jquery.flot.categories.min.js" />
+    <Content Include="lib\jquery\charts\flot\jquery.flot.crosshair.js" />
+    <Content Include="lib\jquery\charts\flot\jquery.flot.crosshair.min.js" />
+    <Content Include="lib\jquery\charts\flot\jquery.flot.fillbetween.js" />
+    <Content Include="lib\jquery\charts\flot\jquery.flot.fillbetween.min.js" />
+    <Content Include="lib\jquery\charts\flot\jquery.flot.js" />
+    <Content Include="lib\jquery\charts\flot\jquery.flot.min.js" />
+    <Content Include="lib\jquery\charts\flot\jquery.flot.orderBars.js" />
+    <Content Include="lib\jquery\charts\flot\jquery.flot.pie.js" />
+    <Content Include="lib\jquery\charts\flot\jquery.flot.pie.min.js" />
+    <Content Include="lib\jquery\charts\flot\jquery.flot.resize.js" />
+    <Content Include="lib\jquery\charts\flot\jquery.flot.resize.min.js" />
+    <Content Include="lib\jquery\charts\flot\jquery.flot.selection.js" />
+    <Content Include="lib\jquery\charts\flot\jquery.flot.selection.min.js" />
+    <Content Include="lib\jquery\charts\flot\jquery.flot.stack.js" />
+    <Content Include="lib\jquery\charts\flot\jquery.flot.stack.min.js" />
+    <Content Include="lib\jquery\charts\flot\jquery.flot.time.js" />
+    <Content Include="lib\jquery\charts\flot\jquery.flot.time.min.js" />
+    <Content Include="lib\jquery\charts\flot\jquery.flot.tooltip.js" />
+    <Content Include="lib\jquery\charts\flot\jquery.flot.tooltip.min.js" />
+    <Content Include="lib\jquery\charts\morris\morris.js" />
+    <Content Include="lib\jquery\charts\morris\raphael-2.0.2.min.js" />
+    <Content Include="lib\jquery\charts\sparkline\jquery.sparkline.js" />
+    <Content Include="lib\jquery\datatable\dataTables.bootstrap.css" />
+    <Content Include="lib\jquery\datatable\dataTables.bootstrap.js" />
+    <Content Include="lib\jquery\datatable\dataTables.bootstrap.min.js" />
+    <Content Include="lib\jquery\datatable\dataTables.tableTools.js" />
+    <Content Include="lib\jquery\datatable\dataTables.tableTools.min.js" />
+    <Content Include="lib\jquery\datatable\jquery.dataTables.js" />
+    <Content Include="lib\jquery\datatable\jquery.dataTables.min.js" />
+    <Content Include="lib\jquery\datatable\ZeroClipboard.js" />
+    <Content Include="lib\jquery\fuelux\spinbox\fuelux.spinbox.js" />
+    <Content Include="lib\jquery\fuelux\spinbox\fuelux.spinbox.min.js" />
+    <Content Include="lib\jquery\fuelux\wizard\wizard-custom.js" />
+    <Content Include="lib\jquery\fuelux\wizard\wizard-custom.min.js" />
+    <Content Include="lib\jquery\fullcalendar\fullcalendar.js" />
+    <Content Include="lib\jquery\fullcalendar\fullcalendar.min.js" />
+    <Content Include="lib\jquery\fullcalendar\jquery-ui.custom.min.js" />
+    <Content Include="lib\jquery\fullcalendar\moment.min.js" />
+    <Content Include="lib\jquery\inputmask\jasny-bootstrap.js" />
+    <Content Include="lib\jquery\inputmask\jasny-bootstrap.min.js" />
+    <Content Include="lib\jquery\jquery-ui-1.10.4.custom.js" />
+    <Content Include="lib\jquery\jquery-ui-1.10.4.custom.min.js" />
+    <Content Include="lib\jquery\jquery.min.js" />
+    <Content Include="lib\jquery\knob\jquery.knob.js" />
+    <Content Include="lib\jquery\slimscroll\jquery.slimscroll.js" />
+    <Content Include="lib\jquery\slimscroll\jquery.slimscroll.min.js" />
+    <Content Include="lib\jquery\textarea\jquery.autosize.js" />
+    <Content Include="lib\jquery\textarea\jquery.autosize.min.js" />
+    <Content Include="lib\utilities.js" />
+    <Content Include="mail\formmail.php" />
+    <Content Include="mail\_notes\dwsync.xml" />
+    <Content Include="ourlifestyleineraldton1.html" />
+    <Content Include="people.html" />
+    <Content Include="planning.html" />
+    <Content Include="portfolio.html" />
+    <Content Include="privacy.html" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Areas\HelpPage\Views\Web.config" />
+    <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\ResourceModel.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\Index.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\TextSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\SimpleTypeModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\Samples.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\Parameters.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ModelDescriptionLink.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\KeyValuePairModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\InvalidSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ImageSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\EnumTypeModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\DictionaryModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ComplexTypeModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="lib\jquery\charts\easypiechart\jquery.easypiechart.min.js.map" />
+    <Content Include="lib\jquery\charts\flot\jquery.flot.min.js.map" />
+    <Content Include="lib\jquery\charts\flot\jquery.flot.tooltip.min.js.map" />
+    <Content Include="lib\jquery\datatable\data.json" />
+    <Content Include="lib\jquery\datatable\dataTables.bootstrap.min.js.map" />
+    <Content Include="lib\jquery\datatable\dataTables.tableTools.min.js.map" />
+    <Content Include="lib\jquery\fuelux\spinbox\fuelux.spinbox.min.js.map" />
+    <Content Include="lib\jquery\fuelux\wizard\wizard-custom.min.js.map" />
+    <Content Include="lib\jquery\slimscroll\jquery.slimscroll.min.js.map" />
+    <Content Include="bower_components\angular-animate\.bower.json" />
+    <Content Include="bower_components\angular-animate\angular-animate.min.js.map" />
+    <Content Include="bower_components\angular-animate\bower.json" />
+    <Content Include="bower_components\angular-animate\package.json" />
+    <Content Include="bower_components\angular-animate\README.md" />
+    <Content Include="bower_components\angular-mocks\.bower.json" />
+    <Content Include="bower_components\angular-mocks\bower.json" />
+    <Content Include="bower_components\angular-mocks\package.json" />
+    <Content Include="bower_components\angular-mocks\README.md" />
+    <Content Include="bower_components\angular-odometer\.bower.json" />
+    <Content Include="bower_components\angular-odometer\.travis.yml" />
+    <Content Include="bower_components\angular-odometer\bower.json" />
+    <Content Include="bower_components\angular-odometer\lib\.DS_Store" />
+    <Content Include="bower_components\angular-odometer\LICENSE" />
+    <Content Include="bower_components\angular-storage\.bower.json" />
+    <Content Include="bower_components\angular-storage\bower.json" />
+    <Content Include="bower_components\angular-storage\CHANGELOG.md" />
+    <Content Include="bower_components\angular-storage\LICENSE" />
+    <Content Include="bower_components\angular-storage\README.md" />
+    <Content Include="bower_components\angular-ui-router\.bower.json" />
+    <Content Include="bower_components\angular-ui-router\bower.json" />
+    <Content Include="bower_components\angular-ui-router\CHANGELOG.md" />
+    <Content Include="bower_components\angular-ui-router\CONTRIBUTING.md" />
+    <Content Include="bower_components\angular-ui-router\LICENSE" />
+    <Content Include="bower_components\angular-ui-router\README.md" />
+    <Content Include="bower_components\angular\.bower.json" />
+    <Content Include="bower_components\angular\angular.min.js.gzip" />
+    <Content Include="bower_components\angular\angular.min.js.map" />
+    <Content Include="bower_components\angular\bower.json" />
+    <Content Include="bower_components\angular\package.json" />
+    <Content Include="bower_components\angular\README.md" />
+    <Content Include="bower_components\oclazyload\.bower.json" />
+    <Content Include="bower_components\oclazyload\bower.json" />
+    <Content Include="bower_components\oclazyload\CHANGELOG.md" />
+    <Content Include="bower_components\oclazyload\LICENSE.md" />
+    <Content Include="bower_components\oclazyload\README.md" />
+    <Content Include="bower_components\odometer\.bower.json" />
+    <Content Include="bower_components\odometer\bower.json" />
+    <Content Include="bower_components\odometer\component.json" />
+    <Content Include="bower_components\odometer\config.rb" />
+    <Content Include="bower_components\odometer\docs\api\themes.md" />
+    <Content Include="bower_components\odometer\docs\intro.md" />
+    <Content Include="bower_components\odometer\docs\welcome\landing-page.coffee" />
+    <Content Include="bower_components\odometer\Gruntfile.coffee" />
+    <Content Include="bower_components\odometer\LICENSE" />
+    <Content Include="bower_components\odometer\odometer.coffee" />
+    <Content Include="bower_components\odometer\package.json" />
+    <Content Include="bower_components\odometer\README.md" />
+    <Content Include="bower_components\odometer\sass\odometer-theme-car.sass" />
+    <Content Include="bower_components\odometer\sass\odometer-theme-default.sass" />
+    <Content Include="bower_components\odometer\sass\odometer-theme-digital.sass" />
+    <Content Include="bower_components\odometer\sass\odometer-theme-minimal.sass" />
+    <Content Include="bower_components\odometer\sass\odometer-theme-plaza.sass" />
+    <Content Include="bower_components\odometer\sass\odometer-theme-slot-machine.sass" />
+    <Content Include="bower_components\odometer\sass\odometer-theme-train-station.sass" />
+    <Content Include="bower_components\odometer\sass\_mixins.sass" />
+    <Content Include="bower_components\angular-chart\d3.min.js" />
+    <Content Include="sent.html" />
+    <Content Include="services.html" />
+    <Content Include="slideshow.swf" />
+    <Content Include="slideshow.xml" />
+    <Content Include="stylesheet.css" />
+    <Content Include="superannuation.html" />
+    <Content Include="Testimonial.swf" />
+    <Content Include="testimonials.html" />
+    <Content Include="unique.html" />
+    <Content Include="updates.html" />
+    <Content Include="~tm1FE2.html" />
+    <Content Include="~tmA1EE.html" />
+    <Content Include="~tmB635.html" />
+    <Content Include=".htaccess" />
+    <Content Include="Financial%2520Services%2520Guide%2508AUG%25202013%2520IFSW.pdf" />
+    <Content Include="ifswa final.cpf" />
+    <Content Include="images\staff\Thumbs.db" />
+    <Content Include="images\_notes\arrowlist.gif.mno" />
+    <Content Include="images\_notes\arrowlist.jpg.mno" />
+    <Content Include="docs\IFSWA brochure.pdf" />
+    <Content Include="docs\news\2011 - Aug- 01 plat additive.pdf" />
+    <Content Include="docs\news\2011 - Nov-01  CFS Monthly_Market_View_1111.pdf" />
+    <Content Include="docs\news\2011 -Nov-11 smu-euro-crisis-fallout.pdf" />
+    <Content Include="docs\news\2011 MLC_Insurance_Enjoy_Life.pdf" />
+    <Content Include="docs\news\2011 wealth_protection_family_strategy.pdf" />
+    <Content Include="docs\news\2011- Dec- 14 smu-what-next-eurozone.pdf" />
+    <Content Include="docs\news\2011-Nov-04-Olivers-Insights-Shares-and-the-long-term-how-long-is-long.pdf" />
+    <Content Include="docs\news\2011-Nov-24-Olivers-Insights-The-threat-from-Europe-how-big.pdf" />
+    <Content Include="docs\news\2011-Nov-30-Olivers-Insights-Why-the-RBA-should-cut-rates-again.pdf" />
+    <Content Include="docs\news\2012-Dec-13-Olivers-Insights-Review-of-2012-outlook-for-2013.pdf" />
+    <Content Include="docs\news\2012-Feb-09-Olivers-Insights-Australia-the-RBA-economy-A-dollar-and-shares.pdf" />
+    <Content Include="docs\news\2012-Jan-25-Olivers-Insights-The-global-economy-looking-a-little-less-scary.pdf" />
+    <Content Include="docs\news\2012-June-28-Olivers-Insights-Australian-house-prices-is-the-crash-upon-us.pdf" />
+    <Content Include="docs\news\2012-May-29-Olivers-Insights-What-to-do.pdf" />
+    <Content Include="docs\news\20120420 Aussie dollar.pdf" />
+    <Content Include="docs\news\20120420 CFS article why Aussie sharemarket has been underperforming.pdf" />
+    <Content Include="docs\news\20120830 Monthly_Market_View_0812.pdf" />
+    <Content Include="docs\news\20120916Investorcomms.pdf" />
+    <Content Include="docs\news\20120920Rabodirect.pdf" />
+    <Content Include="docs\news\ASIC-shadowshopping.pdf" />
+    <Content Include="docs\news\Financial Services Guide 08AUG 2013 IFSW.pdf" />
+    <Content Include="docs\news\getting-advice.pdf" />
+    <Content Include="docs\news\Glossary.pdf" />
+    <Content Include="docs\news\IFSWA AH newsletter dec 2012.pdf" />
+    <Content Include="docs\news\investing-between-the-flags.pdf" />
+    <Content Include="docs\news\Learn_Advice.pdf" />
+    <Content Include="docs\staff\MarkChristie.pdf" />
+    <Content Include="docs\staff\MickSteffan.pdf" />
+    <Content Include="mail\error_log" />
+    <None Include="Properties\PublishProfiles\Atul-publish.pubxml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\config\beyond.js" />
+    <Content Include="Scripts\config\config.js" />
+    <Content Include="Scripts\config\route.config.js" />
+    <Content Include="Scripts\config\settings-notInUse.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Views\partials\breadcrumbs.html" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="www - Shortcut.lnk" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="bower_components\angular-ui-router\api\angular-ui-router.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>50371</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:50340/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:50340/</IISAppRootUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

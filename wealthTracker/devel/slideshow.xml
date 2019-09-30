@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<slideshow interval="5" fade="2">
+<!-- images are best displayed at 381 w x 250 h resolution -->
+<image url="images/intro1.jpg" title="Direction"/>
+<image url="images/intro2.jpg" title="Drive"/>
+<image url="images/intro3.jpg" title="Strive"/>
+<image url="images/intro4.jpg" title="Values"/>
+</slideshow>

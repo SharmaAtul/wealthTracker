@@ -1,0 +1,149 @@
+﻿<div class="container container-minheight">
+    <div style="margin:20px;">
+        <h1 style="display:inline">Manage Asset allocation</h1>
+        
+        <button class="btn btn-lg btn-primary pull-right" style="margin-left:2px; margin-right:2px;" type="submit" ng-click="updateAllocationSetttings()">
+            <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Update
+        </button>
+        <button class="btn btn-lg btn-info pull-right" type="submit" ng-click="addRiskProfile()">
+            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add New Risk Profile Type
+        </button>
+    </div>
+    <div>
+        <span class="errorMessage" ng-show="errorMessage!=''">{{errorMessage}}</span>
+    </div>
+    <hr />
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Risk Profile</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Aus. Shares</th>
+                <th>Int. Shares</th>
+                <th>Property</th>
+                <th>Aus. Fixed Interest</th>
+                <th>Int. Fixed Interest</th>
+                <th>Cash</th>
+                <th>Alternative Assets</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="riskProfile in riskProfileData">
+                <td style="width:200px">{{riskProfile.displayField}} (<span ng-class="{true : 'errorMessage'}[riskProfile.total!=100]">{{riskProfile.total}}</span>)</td>
+
+                <td style="width:20px">
+                    <a ng-show="riskProfileData.length -1 > $index" ng-click="movedown($index)" tooltip="move down"><span class="glyphicon glyphicon-arrow-down"></span></a>
+                </td>
+                <td style="width:20px">
+                    <a ng-show="$index > 0" ng-click="moveup($index)" tooltip="move up"><span class="glyphicon glyphicon-arrow-up"></span></a>
+                </td>
+
+                <td style="width:30px">
+                    <a ng-click="editRiskProfile($index)" tooltip="edit risk profile type"><span class="glyphicon glyphicon-pencil"></span></a>
+                </td>
+                <td style="width:30px">
+                    <a ng-click="deleteRiskProfile($index)" tooltip="delete risk profile type" confirm-if="checked" confirm="Are you sure to delete?"><span class="glyphicon glyphicon-remove"></span></a>
+                </td>
+                
+                <td>
+                    <div class="input-group" style="width:100%">
+                        <input type="number" class="form-control" ng-model="riskProfile.ausShares" min="0" max="100" ng-change="updateTotal($index)">
+                        <span class="input-group-addon">%</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group" style="width:100%">
+                        <input type="number" class="form-control" ng-model="riskProfile.intShares" min="0" max="100" ng-change="updateTotal($index)">
+                        <span class="input-group-addon">%</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group" style="width:100%">
+                        <input type="number" class="form-control" ng-model="riskProfile.property" min="0" max="100" ng-change="updateTotal($index)">
+                        <span class="input-group-addon">%</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group" style="width:100%">
+                        <input type="number" class="form-control" ng-model="riskProfile.ausFixedInterest" min="0" max="100" ng-change="updateTotal($index)">
+                        <span class="input-group-addon">%</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group" style="width:100%">
+                        <input type="number" class="form-control" ng-model="riskProfile.intFixedInterest" min="0" max="100" ng-change="updateTotal($index)">
+                        <span class="input-group-addon">%</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group" style="width:100%">
+                        <input type="number" class="form-control" ng-model="riskProfile.cash" min="0" max="100" ng-change="updateTotal($index)">
+                        <span class="input-group-addon">%</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group" style="width:100%">
+                        <input type="number" class="form-control" ng-model="riskProfile.attractiveAssets" min="0" max="100" ng-change="updateTotal($index)">
+                        <span class="input-group-addon">%</span>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<a id="aRiskProfileTypeForm" data-toggle="modal" data-target="#riskProfileTypeModel"></a>
+<!-- Modal -->
+<div class="modal fade" id="riskProfileTypeModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" id="closeUserModal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    {{riskProfileTypeTitle}}
+                </h4>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <span us-spinner="{radius:30, width:8, length: 16}" id="request-spinner" style="display:none"></span>
+                <form novalidate class="form-horizontal" role="form" name="riskProfileForm">
+                    <div class="form-group" ng-show="isRiskProfileEdit">
+                        <label class="col-sm-4 control-label" for="firstName">Existing name</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" ng-model="riskProfileTypeInEdit" ng-disabled="true" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" ><span ng-show="isRiskProfileEdit">New </span>Name</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="newName" name="newName" ng-model="newRiskProfileType"
+                                   ng-class="{true : 'errorField'}[riskProfileFormSubmitted && (riskProfileForm.newName.$invalid || newRiskProfileType == riskProfileTypeInEdit)]"
+                                   placeholder="New risk profile name" required />
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="errorMessage!=''">
+                        <div class="col-sm-7">
+                            <span class="errorMessage" >{{errorMessage}}</span>
+                        </div>
+                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" id="btnCancel" data-dismiss="modal">
+                            Cancel
+                        </button>
+                        <button type="button" class="btn btn-success" ng-click="updateRiskProfileTitle()">
+                            <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

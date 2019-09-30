@@ -1,0 +1,43 @@
+﻿<div>
+    
+    <div class="container" style="padding-bottom:15px; padding-top:15px;">
+        <a href="../index.html" class="a-device-setting"><img class="header-img" src="../../Content/images/logo-header.jpg" alt=""></a>
+        <ul class="nav navbar-nav navbar-right ulDeviceRight" style="z-index:1000 !important">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="display:inline"> {{userEmail}} <span class="glyphicon glyphicon-user"></span> <span class="caret"></span>&nbsp;</a>
+                <ul class="dropdown-menu">
+                    <!--<li ><a>Profile</a></li>-->
+                    <li ><a ng-click="refreshSession()">Refresh&nbsp;</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li ng-click="logout()"><a>logout&nbsp;</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    
+    <!--<header style="z-index:800 !important">
+        <div class="container">
+            <nav class="navbar navbar-default" style="z-index:800 !important">
+                <!-- Brand and toggle get grouped for better mobile display ---
+                <div class="navbar-header">
+                    <button id="topMenuSmall" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                    </button>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling ---
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a ui-sref="app.dashboard">Dashboard</a></li>
+                        <li ng-show="isAdmin"><a ui-sref="app.clients">Clients</a></li>
+                        <li ng-show="isAdmin"><a ui-sref="app.assetAllocation">Asset Allocation Settings</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>-->
+    <!--<div class="container">
+        <div ncy-breadcrumb></div>-->
+        <!--<div class="page-breadcrumbs {{settings.fixed.breadcrumbs ? 'breadcrumbs-fixed' : ''}}" data-ng-include=" 'views/partials/breadcrumbs.html' ">
+        </div>->
+    </div>-->
+</div>

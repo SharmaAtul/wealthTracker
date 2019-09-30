@@ -1,0 +1,434 @@
+﻿<div class="container" style="padding-bottom:20px;">
+    <div >
+        <h1 style="display:inline">Net Wealth details</h1>
+        <button class="btn btn-lg btn-success pull-right" style="margin:2px;" type="button" ng-click="updateClientFunding()">
+            <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Save
+        </button>
+        <button class="btn btn-lg btn-link pull-right" style="margin:2px;" type="button" ng-click="cancel()">
+            back to wealth details
+        </button>
+    </div>
+    <br />
+    <form class="form-horizontal" role="form" name="frmClientFunding">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#generalDetails" style="display:block">
+                            General details
+                        </a>
+                    </h4>
+                </div>
+                <div id="generalDetails" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="col-sm-10 control-label" for="entryDate">Entry Date</label>
+                            <div class="col-sm-2">
+                                <p class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}" name="entryDate"
+                                           ng-class="{true : 'errorField'}[clientFormSubmitted && frmClientFunding.entryDate.$invalid]"
+                                           ng-model="clientData.funding.entryDate" is-open="status.openedEntryDate" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="openEntryDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="userEmail">Client Details</label>
+                            <div class="col-sm-9">
+                                {{clientData.user.firstName}} {{clientData.user.lastName}}   DOB: {{clientData.user.dob | date : 'dd/MM/yyyy'}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="userEmail">Spouse Details</label>
+                            <div class="col-sm-9">
+                                {{clientData.user.spouseFirstName}} {{clientData.user.spouseLastName}}   DOB: {{clientData.user.spouseDOB | date : 'dd/MM/yyyy'}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="userEmail">Risk profile</label>
+                            <div class="col-sm-3">
+                                <select class="form-control " ng-change="loadRiskProfileValues()" name="riskProfile"
+                                        ng-class="{true : 'errorField'}[clientFormSubmitted && frmClientFunding.riskProfile.$invalid]"
+                                        ng-model="clientData.funding.riskProfile" required
+                                        ng-options="obj.riskProfileType as obj.displayField for obj in riskProfileTypes.data">
+                                    <option value="">--Select--</option>
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="fundingPeriod">Net Wealth date</label>
+                            <div class="col-sm-2">
+                                <p class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}" name="fundingPeriod"
+                                           ng-class="{true : 'errorField'}[clientFormSubmitted && frmClientFunding.fundingPeriod.$invalid]"
+                                           ng-model="clientData.funding.fundingPeriod" is-open="status.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="financialIndependencyAge">Financial Independency age</label>
+                            <div class="col-sm-2">
+                                <input type="number" class="form-control" id="financialIndependencyAge" name="financialIndependencyAge"
+                                       ng-class="{true : 'errorField'}[clientFormSubmitted && frmClientFunding.financialIndependencyAge.$invalid]"
+                                       ng-model="clientData.funding.financialIndependencyAge" placeholder="" min="20" max="100" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="lifestyleObjectiveAt">Lifestyle objective as at</label>
+                            <div class="col-sm-2">
+                                <p class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="clientData.funding.lifestyleObjectiveAt" is-open="status.openedLifestyleObjectiveAt" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="openLifestyleObjectiveAt($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="annualLeavingOff">
+                                Being able to enjoy annual living of ($)
+                            </label>
+                            <div class="col-sm-2">
+                                <input type="number" class="form-control" id="annualLeavingOff" ng-model="clientData.funding.annualLeavingOff" placeholder="" />
+                            </div>
+                            <div class="col-sm-5">
+                                adjusted to inflation
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="lastingFor">Years of funding required after life expectancy 83 years?</label>
+                            <div class="col-sm-2">
+                                <input type="number" class="form-control" id="lastingFor" ng-model="clientData.funding.lastingFor" placeholder="" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="leaveForState">
+                                And leave for my estate<br />
+                                <span style="font-weight:200">(excluding your house and other personal assets) </span>
+                            </label>
+                            <div class="col-sm-2">
+                                <input type="number" class="form-control" id="leaveForState" ng-model="clientData.funding.leaveForState" placeholder="" />
+                            </div>
+                        </div>
+                        <hr />
+                        <h2>Asset Allocation</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="width:150px">Category</th>
+                                    <th>Aus. Shares</th>
+                                    <th>Int. Shares</th>
+                                    <th>Property</th>
+                                    <th>Aus. Financial <br />Interest</th>
+                                    <th>Int. Financial <br />Interest</th>
+                                    <th>Cash</th>
+                                    <th>Alternative assets</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Expected</strong></td>
+                                    <td style="padding:15px;">{{clientData.funding.expectedAusShares}}</td>
+                                    <td>{{clientData.funding.expectedIntShares}}</td>
+                                    <td>{{clientData.funding.expectedProperty}}</td>
+                                    <td>{{clientData.funding.expectedAusFixedInterest}}</td>
+                                    <td>{{clientData.funding.expectedIntFixedInterest}}</td>
+                                    <td>{{clientData.funding.expectedCash}}</td>
+                                    <td>{{clientData.funding.expectedAttractiveAssets}}</td>
+                                </tr>
+                                <tr name="rowTotalShares" ng-class="{true : 'errorField'}[clientFormSubmitted && frmClientFunding.totalShares.$invalid]">
+                                    <td><strong>Real</strong>&nbsp;(<span ng-class="{true : 'errorMessage'}[clientData.funding.totalShares!=100]">{{clientData.funding.totalShares}}</span>)</td>
+                                    <td>
+                                        <div class="input-group" style="width:100%">
+                                            <input type="number" class="form-control" name="actualAusShares"
+                                                   ng-class="{true : 'errorField'}[clientFormSubmitted && frmClientFunding.actualAusShares.$invalid]"
+                                                   ng-model="clientData.funding.actualAusShares" min="0" max="100" ng-change="updateTotalShares()">
+                                            <span class="input-group-addon">%</span>
+                                            <input type="number" min="100" max="100" ng-model="clientData.funding.totalShares" name="totalShares" hidden />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group" style="width:100%">
+                                            <input type="number" class="form-control" name="actualIntShares"
+                                                   ng-class="{true : 'errorField'}[clientFormSubmitted && frmClientFunding.actualIntShares.$invalid]"
+                                                   ng-model="clientData.funding.actualIntShares" min="0" max="100" ng-change="updateTotalShares()">
+                                            <span class="input-group-addon">%</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group" style="width:100%">
+                                            <input type="number" class="form-control"
+                                                   ng-class="{true : 'errorField'}[clientFormSubmitted && frmClientFunding.actualAusFixedInterest.$invalid]"
+                                                   ng-model="clientData.funding.actualProperty" min="0" max="100" ng-change="updateTotalShares()">
+                                            <span class="input-group-addon">%</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group" style="width:100%">
+                                            <input type="number" class="form-control" name="actualAusFixedInterest"
+                                                   ng-class="{true : 'errorField'}[clientFormSubmitted && frmClientFunding.actualAusFixedInterest.$invalid]"
+                                                   ng-model="clientData.funding.actualAusFixedInterest" min="0" max="100" ng-change="updateTotalShares()">
+                                            <span class="input-group-addon">%</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group" style="width:100%">
+                                            <input type="number" class="form-control" name="actualIntFixedInterest"
+                                                   ng-class="{true : 'errorField'}[clientFormSubmitted && frmClientFunding.actualIntFixedInterest.$invalid]"
+                                                   ng-model="clientData.funding.actualIntFixedInterest" min="0" max="100" ng-change="updateTotalShares()">
+                                            <span class="input-group-addon">%</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group" style="width:100%">
+                                            <input type="number" class="form-control" name="actualCash"
+                                                   ng-class="{true : 'errorField'}[clientFormSubmitted && frmClientFunding.actualCash.$invalid]"
+                                                   ng-model="clientData.funding.actualCash" min="0" max="100" ng-change="updateTotalShares()">
+                                            <span class="input-group-addon">%</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group" style="width:100%">
+                                            <input type="number" class="form-control" name="actualAttractiveAssets"
+                                                   ng-class="{true : 'errorField'}[clientFormSubmitted && frmClientFunding.actualAttractiveAssets.$invalid]"
+                                                   ng-model="clientData.funding.actualAttractiveAssets" min="0" max="100" ng-change="updateTotalShares()">
+                                            <span class="input-group-addon">%</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br />
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="userEmail">Alternative Asset details</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="alternativeAssetDetails" ng-model="clientData.funding.alternativeAssetDetails" maxlength="200">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="userEmail">Personal assets as at</label>
+                            <div class="col-sm-2">
+                                <div class="input-group" style="width:100%">
+                                    <input type="text" class="form-control" name="personalAssets"
+                                           ng-class="{true : 'errorField'}[clientFormSubmitted && frmClientFunding.personalAssets.$invalid]"
+                                           ng-model="clientData.funding.personalAssets" ng-change="updateTotal()">
+                                    <span class="input-group-addon">$</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="personalAssetDetails" ng-model="clientData.funding.personalAssetDetails" maxlength="200">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="userEmail">Super assets as at</label>
+                            <div class="col-sm-2">
+                                <div class="input-group" style="width:100%">
+                                    <input type="number" class="form-control" name="superAssets"
+                                           ng-class="{true : 'errorField'}[clientFormSubmitted && frmClientFunding.superAssets.$invalid]"
+                                           ng-model="clientData.funding.superAssets" ng-change="updateTotal()">
+                                    <span class="input-group-addon">$</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="superAssetDetails" ng-model="clientData.funding.superAssetDetails" maxlength="200">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="userEmail">Pension assets</label>
+                            <div class="col-sm-2">
+                                <div class="input-group" style="width:100%">
+                                    <input type="number" class="form-control" name="pensionAssets"
+                                           ng-class="{true : 'errorField'}[clientFormSubmitted && frmClientFunding.pensionAssets.$invalid]"
+                                           ng-model="clientData.funding.pensionAssets" ng-change="updateTotal()">
+                                    <span class="input-group-addon">$</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="pensionAssetDetails" ng-model="clientData.funding.pensionAssetDetails" maxlength="200">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="userEmail">Other entities assets as at</label>
+                            <div class="col-sm-2">
+                                <div class="input-group" style="width:100%">
+                                    <input type="number" class="form-control" name="otherEntitiesAssets"
+                                           ng-class="{true : 'errorField'}[clientFormSubmitted && frmClientFunding.otherEntitiesAssets.$invalid]"
+                                           ng-model="clientData.funding.otherEntitiesAssets" ng-change="updateTotal()">
+                                    <span class="input-group-addon">$</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="otherEntitiesAssetDetails" ng-model="clientData.funding.otherEntitiesAssetDetails" maxlength="200">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="userEmail">Total</label>
+                            <div class="col-sm-2">
+                                <div class="input-group" style="width:100%">
+                                    <input type="number" class="form-control" ng-model="clientData.funding.totalAssets" readonly>
+                                    <span class="input-group-addon">$</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default" ng-hide="isAddNew">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#projectedData" style="display:block">
+                            Projected data
+                        </a>
+                    </h4>
+                </div>
+                <div id="projectedData" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div>
+                            <button class="btn btn-lg btn-default" style="margin:2px;" type="button" ng-click="importProjectedData()">
+                                <span class="glyphicon glyphicon-import" aria-hidden="true"></span> Import projected data
+                            </button>
+                            (Last Projection Date: <span style="color:green">{{clientData.funding.lastProjectionDate | date : 'dd/MM/yyyy'}}</span>)
+                        </div>
+                        <div>
+                            <div style="overflow-x:scroll; padding:10px;">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <div style="padding:2px; background-color:gray" class="text-center"><strong>Year</strong></div>
+                                            <div style="padding:2px; white-space:nowrap" class="text-center">Net Wealth</div>
+                                        </td>
+                                        <td ng-repeat="item in projectedData">
+                                            <div style="padding:2px; background-color:gray" class="text-center"><strong>{{item.year}}</strong></div>
+                                            <div style="padding:2px;" class="text-center">{{item.value}}</div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default" ng-hide="isAddNew">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#resultAndConclusion" style="display:block">
+                            Results and Conclusion of review
+                        </a>
+                    </h4>
+                </div>
+                <div id="resultAndConclusion" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <br />
+                            {{clientData.user.firstName}} and <span ng-show="clientData.user.spouseFirstName!=''"> and <span class="dashboard-span-bold">{{clientData.user.spouseFirstName}}</span></span>, we have conducted a review of your current net wealth and compared it to our projections dated {{clientData.funding.lastProjectionDate| date : 'dd/MM/yyyy'}} and came to the following conclusions:
+                        <br /><br />
+                        1) When we compared your current net wealth ($ {{actualTotalFund}}) with our projected net wealth ($ {{expectedTotalFund}}) and noticed a difference of <span class="good-growth" ng-class="{false : 'bad-growth'}[actualTotalFund >= expectedTotalFund]">$ {{actualTotalFund - expectedTotalFund}}</span> <!--(Green if current wealth > more than projected wealth else red)--> and concluded that the cause of this is:
+                        <br /><br />
+                        <input type="text" style="padding-left:20px;" ng-model="clientData.funding.conclusion1" class="form-control"/>
+                        <br /><br />
+                        Based on the above results we agreed to take the following action:
+                        <br /><br />
+                        <input type="text" style="padding-left:20px;" ng-model="clientData.funding.conclusion2" class="form-control"/>
+                        <br /><br />
+                        2) When we compared the percentage of your current assets invested in to growth assets ({{actualGrowth}} %) (Shares, property and Alternative Assets) to your risk profile expected level ({{expectedGrowth}}%), we noticed a difference of <span class="good-growth" ng-class="{false : 'bad-growth'}[actualGrowth >= expectedGrowth]">{{actualGrowth-expectedGrowth}}%</span> <!--(Green if current growth assets are more than expected level)-->
+                        Based on the above results we agreed to take the following action:
+                        <br /><br />
+                        <input type="text" style="padding-left:20px;" ng-model="clientData.funding.conclusion3" class="form-control"/>
+                        <br /><br />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+    <br />
+    <div>
+        <button class="btn btn-lg btn-success pull-right" style="margin:2px;" type="button" ng-click="updateClientFunding()">
+            <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Save
+        </button>
+        <button class="btn btn-lg btn-link pull-right" style="margin:2px;" type="button" ng-click="cancel()">
+            back to fundings
+        </button>
+    </div>
+</div>
+
+<a id="aImportExcel" data-toggle="modal" data-target="#importExcel"></a>
+<!-- Modal -->
+<div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" id="closeUserModal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Import projected data 
+                </h4>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <span us-spinner="{radius:30, width:8, length: 16}" id="request-spinner" style="display:none"></span>
+                <form novalidate class="form-horizontal" role="form" name="importExcelForm">
+                    <div class="form-group">
+                        <label class="col-sm-5 control-label"></label>
+                        <div class="col-sm-5">
+                            <input type="file" file-model="myFile" id="fileCtrl" />
+                            <div>*.csv files only</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-5 control-label">Net Wealth Proj. date</label>
+                        <div class="col-sm-5">
+                            <p class="input-group">
+                                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-class="{true : 'errorField'}[importExcelFormSubmitted && importExcelForm.netWealthProjectionDate.$invalid]"
+                                       ng-model="netWealthProjectionDate" name="netWealthProjectionDate" is-open="status.openedNetWealthProjectionDate" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="openNetWealthProjectionDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-5 control-label">Row number (Year)</label>
+                        <div class="col-sm-5">
+                            <input type="number" class="form-control" id="rowNumYear" name="rowNumYear" ng-model="rowNumYear"
+                                   ng-class="{true : 'errorField'}[importExcelFormSubmitted && importExcelForm.rowNumYear.$invalid]"
+                                   placeholder="" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-5 control-label">Row number (Net Wealth)</label>
+                        <div class="col-sm-5">
+                            <input type="number" class="form-control" id="rowNumNetWealth" name="rowNumNetWealth" ng-model="rowNumNetWealth"
+                                   ng-class="{true : 'errorField'}[importExcelFormSubmitted && importExcelForm.rowNumNetWealth.$invalid]"
+                                   placeholder="" required />
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" ng-show="errorMessage!=''">
+                        <div class="col-sm-12">
+                            <span class="errorMessage">{{errorMessage}}</span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" id="btnCancel" data-dismiss="modal">
+                            Cancel
+                        </button>
+                        <button type="button" class="btn btn-info" ng-click="uploadFile()">
+                            <span class="glyphicon glyphicon-import" aria-hidden="true"></span> Import
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

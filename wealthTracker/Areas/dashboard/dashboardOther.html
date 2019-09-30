@@ -1,0 +1,227 @@
+﻿<div class="container container-minheight">
+    <div >
+        <!--<h2 style="display:inline;">Dashboard</h2>-->
+        <a class="btn btn-lg btn-link printBtn" style="margin:2px;" onclick="printContent()">
+            print dashboard
+        </a>
+        <button ng-show="isAdmin" class="btn btn-lg btn-link pull-right" style="margin:2px;" type="button" ng-click="cancel()">
+            back to clients
+        </button>
+    </div>
+    <div style="visibility:hidden" id="divUserAndSpouse">{{userDetail.firstName}},{{userDetail.spouseFirstName}}</div>
+    <div id="divDashboard">
+        <hr />
+        <div>
+            <h2 style="color:rgb(194,41,43); text-align:center">IFSWA Wealth Tracker</h2>
+        </div>
+        <hr />
+
+        <div class="div-device-setting" >
+            Welcome, <h3 style="display:inline; color:rgb(194,41,43)">{{userDetail.firstName}} {{userDetail.lastName}}</h3><span ng-show="userDetail.spouseFirstName!=''"> and <h3 style="color:rgb(194,41,43); display:inline">{{userDetail.spouseFirstName}} {{userDetail.spouseLastName}}</h3></span>,
+            <br /><br />
+            <span style="color:dimgray">
+                During the initial advice process or follow up review we have helped you formulate your lifestyle objectives so that we can base our strategy around your lifestyle objectives and track your progression towards attaining your goal.
+            </span><br /><br /><br />
+            <div class="lifestyle-content">
+                <span style="color:rgb(194,41,43)">
+                    <span class="dashboard-span-bold">{{userDetail.firstName}}</span><span ng-show="userDetail.spouseFirstName!=''"> and <span class="dashboard-span-bold">{{userDetail.spouseFirstName}}</span></span>,
+                    <span class="dashboard-span-bold">
+                        your Lifestyle Objective was formulated and updated on
+                        <span class="dashboard-span-bold">{{lastFunding.lifestyleObjectiveAt | date : 'dd/MM/yyyy'}}</span>
+                        as following:
+                    </span>
+                </span>
+                <br /><br />
+                <span style="color:darkslateblue">
+                    You would like to be financial independent at age <span class="dashboard-span-bold">{{lastFunding.financialIndependencyAge}}</span> (<span class="dashboard-span-bold">{{userDetail.firstName}}</span>) with an annual retirement budget of
+                    $<span class="dashboard-span-bold">{{lastFunding.annualLeavingOff | number:0}}</span> per year adjusted to inflation and would like to have that budget for at least
+                    <span class="dashboard-span-bold">{{lastFunding.lastingFor}}</span>
+                    years past your life expectancy of 83. You further would like to leave for your estate (excluding your house and other personal assets)
+                    <span class="dashboard-span-bold">${{lastFunding.leaveForState | number:0}}</span>.
+                </span>
+                <br /><br />
+                You agreed, that the following assets and or resources will be allocated to work towards this:
+                <br /><br />
+                <div class="row div-net-asset" style="color:green">
+                    <div class="col-xs-7 col-sm-4"><span class="glyphicon glyphicon-asterisk" ></span> Personal Assets</div>
+                    <div class="col-xs-5 col-sm-2">$<span class="dashboard-span-bold">{{lastFunding.personalAssets | number:0}}</span></div>
+                    <div class="col-xs-11 col-sm-6">{{lastFunding.personalAssetDetails }}</div>
+                </div>
+                <div class="row div-net-asset" style="color:goldenrod">
+                    <div class="col-xs-7 col-sm-4"><span class="glyphicon glyphicon-asterisk" ></span> Superannuation Assets</div>
+                    <div class="col-xs-5 col-sm-2">$<span class="dashboard-span-bold">{{lastFunding.superAssets | number:0}}</span></div>
+                    <div class="col-xs-11 col-sm-6">{{lastFunding.superAssetDetails }}</div>
+                </div>
+                <div class="row div-net-asset" style="color:orange">
+                    <div class="col-xs-7 col-sm-4"><span class="glyphicon glyphicon-asterisk" ></span> Pension Assets</div>
+                    <div class="col-xs-5 col-sm-2">$<span class="dashboard-span-bold">{{lastFunding.pensionAssets | number:0}}</span></div>
+                    <div class="col-xs-11 col-sm-6">{{lastFunding.pensionAssetDetails }}</div>
+                </div>
+                <div class="row div-net-asset" style="color:red">
+                    <div class="col-xs-7 col-sm-4"><span class="glyphicon glyphicon-asterisk" ></span> Other Entity Assets</div>
+                    <div class="col-xs-5 col-sm-2">$<span class="dashboard-span-bold">{{lastFunding.otherEntitiesAssets | number:0}}</span></div>
+                    <div class="col-xs-11 col-sm-6">{{lastFunding.otherEntitiesAssetDetails }}</div>
+                </div>
+                <!--<table >
+                    <tr style="color:green">
+                        <td style="width:250px"></td>
+                        <td style="width:10px;"></td>
+                        <td style="text-align:right"></td>
+                        <td style="padding-left:20px;"></td>
+                    </tr>
+                    <tr style="">
+                        <td><span class="glyphicon glyphicon-asterisk" style="font-size:14px;"></span> Superannuation Assets</td>
+                        <td style="width:10px;"></td>
+                        <td style="text-align:right">$<span class="dashboard-span-bold">{{lastFunding.superAssets | number:0}}</span></td>
+                        <td style="padding-left:20px;">{{lastFunding.superAssetDetails}}</td>
+                    </tr>
+                    <tr style="">
+                        <td><span class="glyphicon glyphicon-asterisk" style="font-size:14px;"></span> Pension Assets </td>
+                        <td style="width:10px;"></td>
+                        <td style="text-align:right">$<span class="dashboard-span-bold">{{lastFunding.pensionAssets | number:0}}</span></td>
+                        <td style="padding-left:20px;">{{lastFunding.pensionAssetDetails}}</td>
+                    </tr>
+                    <tr style="">
+                        <td><span class="glyphicon glyphicon-asterisk" style="font-size:14px;"></span> Other Entity Assets</td>
+                        <td style="width:10px;"></td>
+                        <td style="text-align:right">$<span class="dashboard-span-bold">{{lastFunding.otherEntitiesAssets | number:0}}</span></td>
+                        <td style="padding-left:20px;">{{lastFunding.otherEntitiesAssetDetails }}</td>
+                    </tr>
+                </table>-->
+                <br /><br />
+                You also agreed to invest using the following risk profile: <span class="dashboard-span-bold">{{lastFunding.riskProfile}}</span>
+            </div>
+        </div>
+        
+        <div class="div-device-setting" >
+            <div style="page-break-inside: avoid;">
+                <br />
+                <span class="dashboard-span-bold">{{userDetail.firstName}}</span><span ng-show="userDetail.spouseFirstName!=''"> and <span class="dashboard-span-bold">{{userDetail.spouseFirstName}}</span></span>, we have tracked your progression towards your lifestyle objectives, which are displayed in the graph below:
+                <br /><br />
+                <h3 style="color:rgb(194,41,43); text-align:center">Historical balance of overall wealth allocated to achieve your lifestyle objectives</h3>
+                <div class="chartBox text-right">
+                    <nvd3-stacked-area-chart data="netWealthReportData"
+                                             id="report2"
+                                             showXAxis="true"
+                                             showYAxis="true"
+                                             showLabels="true"
+                                             width="1000"
+                                             height="350"
+                                             interactive="true"
+                                             useInteractiveGuideline="true"
+                                             tooltips="true"
+                                             showLegend="true"
+                                             yaxistickformat="yaxistickformat()"
+                                             tooltipcontent="toolTipContentFunction()">
+                        <!--yAxisTickFormat ="d3.format(',.0d')"-->
+                        <!--<svg width="100%" height="100%" viewBox="0 0 1000 350"></svg>-->
+                    </nvd3-stacked-area-chart>
+
+                </div><br />
+            </div>
+                <div style="page-break-inside: avoid;">
+                    <h3 style="color:rgb(194,41,43); text-align:center">Actual Wealth & Expected Wealth</h3>
+                    <div class="chartBox text-center">
+                        <nvd3-line-chart data="netWealthComparisonReportData"
+                                         id="isAreaDataExample"
+                                         width="1000"
+                                         height="350"
+                                         showLabels="true"
+                                         yaxistickformat="yaxistickformat()"
+                                         tooltips="true"
+                                         showLegend="true"
+                                         tooltipcontent="toolTipContentFunction()"
+                                         interactive="true"
+                                         useInteractiveGuideline="true"
+                                         showXAxis="true"
+                                         showYAxis="true">
+                            <svg width="100%" height="100%" viewBox="0 0 1000 350"></svg>
+                        </nvd3-line-chart>
+                    </div>
+                    <div class ="div-chart-tip">
+                        <span style="font-size:12px; font-style:italic">(please click or hover over legend and or graph for further analysis)</span>
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="div-device-setting" >
+            <div style="page-break-inside: avoid;">
+                
+                <div>
+                    <span class="dashboard-span-bold">{{userDetail.firstName}}</span><span ng-show="userDetail.spouseFirstName!=''"> and <span class="dashboard-span-bold">{{userDetail.spouseFirstName}}</span></span>, we also have tracked the risk you have taken to achieve your accumulated wealth by evaluating the asset classes you have been invested in. Remember that International Shares, Australian Shares, Property and Alternative Assets are growth assets while Cash and Fixed Interest are defensive assets.
+                    <br />
+                </div>
+                <h3 style="color:rgb(194,41,43); margin-top:40px; text-align:center">Historical asset classes risk exposure</h3>
+                <div class="chartBox text-center">
+                    <nvd3-stacked-area-chart data="assetClassesReportData"
+                                             id="report1"
+                                             showXAxis="true"
+                                             showYAxis="true"
+                                             showLabels="true"
+                                             width="1000"
+                                             height="350"
+                                             interactive="true"
+                                             useInteractiveGuideline="true"
+                                             tooltips="true"
+                                             showLegend="true"
+                                             yaxistickformat="yaxistickformatclass()"
+                                             tooltipcontent="toolTipContentFunction()">
+                        <!--yAxisTickFormat ="d3.format(',.0d')"-->
+                        <svg width="100%" height="100%" viewBox="0 0 1000 350"></svg>
+                    </nvd3-stacked-area-chart>
+                </div><br />
+            </div>
+            <div style="page-break-inside: avoid;">
+                <div style=" margin-top:20px; margin-bottom:20px;" class="div-alternative-asset">
+                    <strong>Alternative Assets* </strong>:<span style="padding-left:10px;">{{lastFunding.alternativeAssetDetails}}</span>
+                </div>
+                <h3 style="color:rgb(194,41,43); text-align:center">Actual Growth Exposure & Expected Growth Exposure</h3>
+                <div class="chartBox text-center">
+                    <nvd3-line-chart data="assetClassesComparisonReportData"
+                                     id="isAreaDataExample2"
+                                     width="1000"
+                                     height="350"
+                                     showLabels="true"
+                                     yaxistickformat="yaxistickformatclass()"
+                                     tooltips="true"
+                                     showLegend="true"
+                                     tooltipcontent="toolTipContentFunction()"
+                                     interactive="true"
+                                     useInteractiveGuideline="true"
+                                     showXAxis="true"
+                                     showYAxis="true">
+                        <svg width="100%" height="100%" viewBox="0 0 1000 350"></svg>
+                    </nvd3-line-chart>
+                </div>
+                <div class ="div-chart-tip">
+                    <span style="font-size:12px; font-style:italic">(please click or hover over legend and or graph for further analysis)</span>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="div-device-setting" >
+            <div>
+                <h2 style="color:rgb(194,41,43); text-align:center">Result &amp; Conclusion</h2>
+            </div>
+            <div class="dashboard-span-bold" style="margin-top:30px;">
+                <span >{{userDetail.firstName}}</span><span ng-show="userDetail.spouseFirstName!=''"> and <span class="dashboard-span-bold">{{userDetail.spouseFirstName}}</span></span>, we have conducted a review of your current net wealth and compared it to our projections dated {{lastFunding.lastProjectionDate| date : 'dd/MM/yyyy'}} and came to the following conclusions:
+                <br /><br />
+                1) We compared your current net wealth (${{actualTotalFund | number:0}}) with our projected net wealth (${{expectedTotalFund | number:0}}) and noticed a difference of <span class="good-growth" ng-class="{false : 'bad-growth'}[actualTotalFund >= expectedTotalFund]">${{actualTotalFund - expectedTotalFund  | number:0 }}</span> <!--(Green if current wealth > more than projected wealth else red)--> and concluded that the cause of this is:
+            </div>
+            <div style="margin-top:20px;">{{lastFunding.conclusion1}}</div>
+            <div class="dashboard-span-bold" style="margin-top:20px;">Based on the above results we agreed to take the following action:</div>
+            <div style="margin-top:20px;">{{lastFunding.conclusion2}}</div>
+            <div class="dashboard-span-bold" style="margin-top:20px;">
+                2) When we compared the percentage of your current assets invested into growth assets ({{actualGrowth}}%) (Shares, Property and Alternative Assets) to your risk profile expected level ({{expectedGrowth}}%), we noticed a difference of <span class="good-growth" ng-class="{false : 'bad-growth'}[actualGrowth >= expectedGrowth]">{{actualGrowth-expectedGrowth | number:2}}%</span> <!--(Green if current growth assets are more than expected level)-->
+                based on the above results and we agreed to take the following action:
+            </div>
+            <div style="margin-top:20px;">{{lastFunding.conclusion3}}</div>
+        </div>
+    </div>
+    <br /><br />
+    
+    </div>
+
+
